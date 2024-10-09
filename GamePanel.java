@@ -74,32 +74,50 @@ public class GamePanel extends JPanel implements ActionListener {
     public void paint(Graphics g){
         super.paint(g);
 
-        //Draw horizontal indication lines
-        for(int i =0; i <panelHorizontal/unitSize; i++){
-            g.setColor(new Color(163, 163, 163));
-            g.drawLine(i*unitSize,0,i*unitSize,panelVertical );
-        }
-        //Draw vertical indication lines
-        for(int i=0; i<panelVertical/unitSize; i++){
-            g.setColor(new Color(143, 143, 143));
-            g.drawLine(0,i*unitSize,panelHorizontal,i*unitSize);
-        }
-
-        //drawing the apple
-        g.setColor(new Color(255, 87, 51));
-        g.fillOval(appleX, appleY, unitSize , unitSize);
-
-        //drawing the snake
-        for(int i=0; i<bodyParts; i++){
-            if(i==0){
-                g.setColor(new Color(138, 154, 91));
-                g.fillRect(snakePartX[i],snakePartY[i],unitSize,unitSize);
+        if(isRunning){
+            //Draw horizontal indication lines
+            for(int i =0; i <panelHorizontal/unitSize; i++){
+                g.setColor(new Color(163, 163, 163));
+                g.drawLine(i*unitSize,0,i*unitSize,panelVertical );
             }
-            else {
-                g.setColor(new Color(128, 128, 0));
-                g.fillRect(snakePartX[i],snakePartY[i],unitSize,unitSize);
+            //Draw vertical indication lines
+            for(int i=0; i<panelVertical/unitSize; i++){
+                g.setColor(new Color(143, 143, 143));
+                g.drawLine(0,i*unitSize,panelHorizontal,i*unitSize);
+            }
+
+            //drawing the apple
+            g.setColor(new Color(255, 87, 51));
+            g.fillOval(appleX, appleY, unitSize , unitSize);
+
+            //drawing the snake
+            for(int i=0; i<bodyParts; i++){
+                if(i==0){
+                    g.setColor(new Color(138, 154, 91));
+                    g.fillRect(snakePartX[i],snakePartY[i],unitSize,unitSize);
+                }
+                else {
+                    g.setColor(new Color(128, 128, 0));
+                    g.fillRect(snakePartX[i],snakePartY[i],unitSize,unitSize);
+                }
+                g.setColor(new Color(151, 29, 29));
+                g.setFont(new Font("Arial",Font.BOLD,20));
+                g.drawString("Score : "+String.valueOf(eatenApples),75,50);
+
             }
         }
+        else
+            gameOver(g);
+    }
+
+    private void gameOver(Graphics g) {
+        g.setColor(new Color(151, 29, 29));
+        g.setFont(new Font("Arial",Font.BOLD,75));
+        g.drawString("GAME OVER",75,250);
+
+        g.setColor(new Color(151, 29, 29));
+        g.setFont(new Font("Arial",Font.BOLD,50));
+        g.drawString("Score : "+String.valueOf(eatenApples),200,315);
     }
 
     public void checkCollision(){

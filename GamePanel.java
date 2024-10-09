@@ -1,12 +1,9 @@
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
+import java.awt.event.*;
 import java.util.Random;
 
-public class GamePanel extends JPanel implements ActionListener, KeyListener {
+public class GamePanel extends JPanel implements ActionListener {
 
     private final int panelHorizontal = 600;
     private final int panelVertical = 600;
@@ -17,6 +14,7 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
     private int bodyParts= 6;
     private int[] snakePartX = new int[unitCount];
     private int[] snakePartY = new int[unitCount];
+    private int eatenApples =0;
 
     //Movement related
     private char direction = 'R';
@@ -33,6 +31,8 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 
     GamePanel(){
         random = new Random();
+        this.addKeyListener(new KeyController());
+        this.setFocusable(true);
         this.setPreferredSize(new Dimension(panelVertical,panelHorizontal));
         this.setBackground(Color.LIGHT_GRAY);
         gameStart();
@@ -76,10 +76,12 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 
         //Draw horizontal indication lines
         for(int i =0; i <panelHorizontal/unitSize; i++){
+            g.setColor(new Color(163, 163, 163));
             g.drawLine(i*unitSize,0,i*unitSize,panelVertical );
         }
         //Draw vertical indication lines
         for(int i=0; i<panelVertical/unitSize; i++){
+            g.setColor(new Color(143, 143, 143));
             g.drawLine(0,i*unitSize,panelHorizontal,i*unitSize);
         }
 
@@ -123,22 +125,41 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
         if(isRunning){
             moving();
             checkCollision();
+            checkAppleEatten();
         }
         repaint();
     }
 
-    @Override
-    public void keyTyped(KeyEvent e) {
-
+    private void checkAppleEatten() {
+        if(snakePartX[0]==appleX && snakePartY[0] == appleY){
+            eatenApples++;
+            bodyParts++;
+            appleCorrdiant();
+        }
     }
 
-    @Override
-    public void keyPressed(KeyEvent e) {
-
+    public class KeyController extends KeyAdapter {
+        @Override
+        public void keyPressed(KeyEvent e) {
+            switch (e.getKeyCode()){
+                case KeyEvent.VK_A :
+                    if(direction !='R')
+                        direction ='L';
+                    break;
+                case KeyEvent.VK_D:
+                    if(direction !='L')
+                        direction ='R';
+                    break;
+                case KeyEvent.VK_W:
+                    if(direction != 'D')
+                        direction ='U';
+                    break;
+                case KeyEvent.VK_S:
+                    if(direction != 'U')
+                        direction ='D';
+                    break;
+            }
+        }
     }
 
-    @Override
-    public void keyReleased(KeyEvent e) {
-
-    }
 }

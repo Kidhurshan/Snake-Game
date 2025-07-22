@@ -1,3 +1,6 @@
+
+<p align="center">
+
 # 🐍 Snake Game
 
 A classic Snake Game implementation in Java using Swing GUI framework. Control the snake to eat apples and grow longer while avoiding collisions with walls and your own body.
@@ -6,6 +9,8 @@ A classic Snake Game implementation in Java using Swing GUI framework. Control t
 ![Swing](https://img.shields.io/badge/Swing-000000?style=for-the-badge&logo=java&logoColor=white)
 ![License](https://img.shields.io/badge/License-MIT-green.svg)
 
+   <img width="1600" alt="image" src="https://github.com/user-attachments/assets/110cc5c3-1d38-4927-9bf5-38a824115198" />
+</p>
 ## 🎮 Features
 
 - **Classic Gameplay**: Traditional snake game mechanics with smooth controls
